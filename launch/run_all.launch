@@ -66,6 +66,19 @@
     <arg name="base_type" value="$(arg base_type)"/>
     <arg name="advanced_grasping" value="$(arg advanced_grasping)" unless="$(arg public_sim)"/>
   </include>
+
+  <include file="$(find tiago_2dnav_gazebo)/launch/navigation.launch">
+      <arg name="state"          value="mapping"/>
+      <arg name="mapping"        value="$(arg mapping)"/>
+      <arg name="planner"        value="$(arg planner)"/>
+      <arg name="global_planner" value="$(arg global_planner)"/>
+      <arg name="local_planner"  value="$(arg local_planner)"/>
+      <arg name="public_sim"     value="$(arg public_sim)"/>
+      <arg name="rgbd_sensors"   value="$(arg rgbd_sensors)"/>
+      <arg name="laser_model"    value="$(arg laser_model)"/>
+      <arg name="base_type"      value="$(arg base_type)"/>
+    </include>
+
   
   <include file="$(find yolov7_ros)/launch/yolov7.launch"/>
 

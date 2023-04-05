@@ -1,0 +1,5 @@
+<launch>
+   
+    <node pkg="rviz" type="rviz" name="ros_3d_bb_rviz" args="-d $(find ros_3d_bb)/config/myrviz.rviz" />
+    
+</launch>

@@ -27,7 +27,7 @@
 
   <!-- start up world -->
   <!-- <group if="$(eval arg('world') == 'bookstore')"> -->
-  <include file="$(find aws_robomaker_hospital_world)/launch/my_hospital.launch">
+  <include file="$(find master_pgk)/launch/my_$(arg world).launch">
     <arg name="gui" value="$(arg gui)"/>
     <arg name="debug" value="$(arg debug)"/>
     <arg name="recording" value="$(arg recording)"/>
