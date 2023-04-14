@@ -37,9 +37,9 @@ class FilterObject:
                 resultID = result.id
                 classID = self.object_class
                 if int(resultID) == int(classID):
-                    print("FOUND")
+                    # print("FOUND")
                     filtered_detections.detections.append(object)
-                    print("Object ", self.num, "data found")
+                    # print("Object ", self.num, "data found")
                     self.num = self.num + 1
                     #print(filtered_detections.detections)
                     break
@@ -47,7 +47,7 @@ class FilterObject:
         if filtered_detections.detections:
            # print(filtered_detections)
             self.pub_filtered.publish(filtered_detections)
-            print("Publishing filtered detections...\n")
+            # print("Publishing filtered detections...\n")
 
 
 

@@ -70,7 +70,10 @@
     node(s) that convert YOLO's 2D bounding box to 3D bounding boxes and markers -->
     <include file="$(find ros_3d_bb)/launch/simulation.launch"/>
 
-
+<!-- Publishes the voxel grid to rviz for display -->
+  <node pkg="costmap_2d" type="costmap_2d_markers" name="voxel_visualizer">
+    <remap from="voxel_grid" to="costmap/voxel_grid"/>
+  </node>
   
   <!-- This node allows you to specify which object you want -->
     <include file="$(find choose_yolov7_object)/launch/choose_object.launch">
