@@ -2,7 +2,7 @@
 <launch>
   <arg name="namespace" default="/"/>
   <arg name="public_sim"   default="true"/>
-    <arg name="world" default="bookstore"/>
+  <arg name="world" default="bookstore"/>
 
   <arg name="robot"  default="titanium"/>
   <arg name="arm"  default="$(eval {'iron': False}.get(arg('robot'), True))"/>
@@ -52,6 +52,13 @@
       <!-- <arg name="extra_gazebo_args" value="$(arg extra_gazebo_args)"/> -->
       <arg name="base_type"  value="$(arg base_type)"/>
     </include>
+    
+    <!-- Start the voxel layer node -->
+  <node name="voxel_layer_node" pkg="costmap_2d" type="voxel_layer" respawn="false" output="screen">
+    <param name="point_cloud.sensor_frame" value="base_scan"/>
+    <remap from="/filtered_pcl_4voxel" to="/pointcloud2"/>
+  </node>
+    <node pkg="master_pkg" type="point_cloud_voxel_filter" name="point_cloud_voxel_filter_node"/>
 
     <include file="$(find tiago_2dnav_gazebo)/launch/navigation.launch">
       <arg name="state"          value="mapping"/>
@@ -74,6 +81,7 @@
   <node pkg="costmap_2d" type="costmap_2d_markers" name="voxel_visualizer">
     <remap from="voxel_grid" to="costmap/voxel_grid"/>
   </node>
+  
   
   <!-- This node allows you to specify which object you want -->
     <include file="$(find choose_yolov7_object)/launch/choose_object.launch">
