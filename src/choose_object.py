@@ -31,18 +31,39 @@ class objClass:
         self.rate = rospy.Rate(10)
 
 
-    def get_object_classes(self):
-        return GetObjectClassesResponse("""0: Ground Coffee\n 1: Banana\n 2: Pitcher\n 3: Bleach bottle\n 
-        4: Bowl\n 5: Mug\n 6: Power drill\n 7: Wood block\n 
-        8: Scissors\n 9: Marker pen\n 10: Small clamp\n 11: Cheez It crackers\n 
-        12: Big clamp\n 13: Foam Brick\n 14: Domino sugar box\n 15: Campbells tomato soup\n 
-        16: Mustard Bottle\n 17: Tuna can\n 18: Jello Box - Chocolate\n 19: Jello Box - Strawberry\n 20: Spam can\n""")
+    def get_object_classes(self, data):
+        classes = ["0: Ground Coffee",
+                "1: Banana",
+                "2: Pitcher",
+                "3: Bleach bottle",
+                "4: Bowl",
+                "5: Mug",
+                "6: Power drill",
+                "7: Wood block",
+                "8: Scissors",
+                "9: Marker pen",
+                "10: Small clamp",
+                "11: Cheez It crackers",
+                "12: Big clamp",
+                "13: Foam Brick",
+                "14: Domino sugar box",
+                "15: Campbells tomato soup",
+                "16: Mustard Bottle",
+                "17: Tuna can",
+                "18: Jello Box - Chocolate",
+                "19: Jello Box - Strawberry",
+                "20: Spam can"]
+        response = []
+        for i in classes:
+            response.append(i)
+        return GetObjectClassesResponse(response)
     
-    
-    def change_object_class(self, new_class):
+    def change_object_class(self, data):
+        object_class = data.object_class
+        # print(int(object_class))
     # Check  new_class is valid int between 1-21
-        if isinstance(new_class, int) & 1 <= new_class <= 21:
-            self.object_class = new_class
+        if isinstance(object_class, int) & 1 <= object_class <= 21:
+            self.object_class = object_class
             rospy.loginfo(f"Object class set to {self.object_class}")
             self.pub_object_class.publish(self.object_class)
             return SetObjectClassResponse(True, "New object class recieved. Initiate search...")

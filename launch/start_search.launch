@@ -1,0 +1,4 @@
+<launch>
+    <include file="$(find master_pkg)/launch/objToDB.launch"/>
+    <include file="$(find master_pkg)/launch/findObject.launch"/>
+</launch>
