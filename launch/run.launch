@@ -2,7 +2,7 @@
 <launch>
   <arg name="namespace" default="/"/>
   <arg name="public_sim"   default="true"/>
-  <arg name="world" default="bookstore"/>
+  <arg name="world" default="bookstore_objects"/>
   <rosparam param="world" subst_value="True">$(arg world)</rosparam> <!-- set for db node -->
   <arg name="robot"  default="titanium"/>
   <arg name="arm"  default="$(eval {'iron': False}.get(arg('robot'), True))"/>
@@ -15,10 +15,14 @@
   <arg name="gzpose" default="-x 0.0 -y 0.0 -z 0.0 -R 0.0 -P 0.0 -Y 0.0"/>
   <arg name="tuck_arm"  default="true"/>
 
+  <!-- This was necessary to reduce load to CPU (value was 0.001) -->
+  <arg name="gazebo_time_step" default="0.01"/>
+
   <arg name="planner"        default="base"/>
   <arg name="global_planner" default="global_planner"/>
   <arg name="local_planner"  default="$(eval 'teb' if (arg('public_sim') or arg('base_type')=='omni_base') else 'pal')"/>
   <arg name="mapping"        default="$(eval 'gmapping' if arg('public_sim') else 'karto')"/>
+  <arg name="model"     default="10_negs"/>
 
   <arg name="rviz"     default="true"/>
   <arg name="gzclient" default="true"/>
@@ -74,7 +78,9 @@
 
     <!-- This node starts up the yolov7 detector, as well as the 
     node(s) that convert YOLO's 2D bounding box to 3D bounding boxes and markers -->
-    <include file="$(find ros_3d_bb)/launch/simulation.launch"/>
+    <include file="$(find ros_3d_bb)/launch/simulation.launch">
+     <arg name="model" value="$(arg model)"/>
+     </include>
 
  
   
@@ -84,9 +90,9 @@
       <arg name = "object_class" value="$(arg object_class)"/>
     </include>
 
-    <include file="$(find master_pkg)/launch/objToDB.launch">
+    <!-- <include file="$(find master_pkg)/launch/objToDB.launch">
       <arg name="world" value="$(arg world)"/>
-    </include>
+    </include> -->
 
 
   </group>
@@ -102,5 +108,6 @@
       <arg name="cloud"  value="/xtion/depth_registered/points"/>
     </include>
   </group>
+  <param name="/gazebo/time_step" value="$(arg gazebo_time_step)"/>
 
 </launch>

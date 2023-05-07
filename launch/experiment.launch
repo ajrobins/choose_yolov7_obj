@@ -1,0 +1,9 @@
+<launch>
+  <arg name="world" default="my_world"/>
+  <arg name="model" default="my_model"/>
+  <rosparam param="model" subst_value="True">$(arg model)</rosparam> <!-- set for db -->
+
+  <node name="findObject_experiment_node" pkg="choose_yolov7_object" type="findObject_exp.py" output="screen"/>
+
+
+</launch>

@@ -1,4 +1,5 @@
 <launch>
     <include file="$(find master_pkg)/launch/objToDB.launch"/>
     <include file="$(find master_pkg)/launch/findObject.launch"/>
+    <include file="$(find master_pkg)/launch/ground_truths.launch"/>
 </launch>

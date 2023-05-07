@@ -1,7 +1,6 @@
 <launch>
    <arg name="object_class" default="0"/>
-    <node pkg="choose_yolov7_object" type="choose_object.py" name="object_filter" output="screen"
-    ns="choose_object">
+    <node pkg="choose_yolov7_object" type="choose_object.py" name="object_filter" output="screen">
         <param name="object_class" value="$(arg object_class)"/>
     </node>
 </launch>
